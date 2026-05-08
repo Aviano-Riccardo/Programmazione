@@ -18,10 +18,10 @@ void inserisciStudenti(Studente classe[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        printf("Nome: ");
+        printf("\nNome: ");
         scanf("%s", classe[i].nome);
 
-        printf("\nCognome: ");
+        printf("Cognome: ");
         scanf("%s", classe[i].cognome);
     }
 }
@@ -57,19 +57,53 @@ void stampaStudenti (Studente classe[], int n)
         printf("- Voti: ");
         for (int j = 0; j < MAX_V; j++)
         {
-            printf("%d", classe[i].voti[j]);
+            printf(" %d", classe[i].voti[j]);
         }
         
-        printf("\t- Media: %.2f", classe[i].media);
+        printf("\t- Media: %.2f\n", classe[i].media);
     }
 }
 
-void trovaMigliore (Studente classe[], int n)
+int trovaMigliore (Studente classe[], int n)
 {
+    int migliore = 0;
+
     for (int i = 0; i < n; i++)
     {
-        
+        if (classe[i].media > classe[migliore].media)
+        {
+            migliore = i;
+        }
     }
+
+    return migliore;
+}
+
+void salvaSuFile (Studente classe[], int n)
+{
+    FILE *f = fopen ("studenti.txt", "w");
+    if (f == NULL)
+    {
+        return;
+    }
+
+    fprintf (f, "===ELENCO STUDENTI===\n");
+    
+    for (int i = 0; i < n; i++)
+    {
+        fprintf (f, "%s %s\t", classe[i].nome, classe[i].cognome);
+        
+        for (int j = 0; j < MAX_V; j++)
+        {
+            fprintf (f, "- Voti: %d\t", classe[i].voti[j]);
+        }
+
+        fprintf (f, "- Media: %.2f\n", classe[i].media);
+    }
+
+    fclose(f);
+
+    printf("Dati salvati correttamente sul file 'studenti.txt'.");
 }
 
 int main()
@@ -84,6 +118,43 @@ int main()
     } while (n < 1 || n > MAX_S);
     
     Studente classe[n];
+
+    inserisciStudenti (classe, n);
+
+    for (int i = 0; i < n; i++)
+    {
+        generaVoti(&classe[i], n);
+        calcolaMedie(&classe[i]);
+    }
+    
+    printf("\n===ELENCO STUDENTI===\n");
+    printf("---ELENCO INIZIALE---\n");
+    stampaStudenti(classe, n);
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < MAX_V; j++)
+        {
+            if (classe[i].voti[j] < 6)
+            {
+                classe[i].voti[j] = 6;
+            }
+        }
+
+        calcolaMedie(&classe[i]);
+        
+    }
+
+    printf("\n---ELENCO FINALE---\n");
+    stampaStudenti(classe, n);
+
+    printf("\n===MIGLIOR STUDENTE===\n");
+    
+    int migliore = trovaMigliore(classe, n);
+
+    printf("%s %s - Media: %.2f\n",classe[migliore].nome,classe[migliore].cognome,classe[migliore].media);
+
+    salvaSuFile(classe, n);
 
     return 0;
 }

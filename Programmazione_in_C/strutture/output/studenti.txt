@@ -1,0 +1,4 @@
+===ELENCO STUDENTI===
+Riccardo Aviano	- Voti: 9	- Voti: 6	- Voti: 6	- Voti: 6	- Voti: 7	- Media: 6.80
+Marco Messue	- Voti: 6	- Voti: 10	- Voti: 10	- Voti: 7	- Voti: 7	- Media: 8.00
+Pippo Falenji	- Voti: 6	- Voti: 6	- Voti: 6	- Voti: 9	- Voti: 6	- Media: 6.60
