@@ -28,7 +28,7 @@ void inserisciDati (PartitaIva iva[], int n)
         {
             do
             {
-                printf("Matricola (ricorda di inserire 1 cifra alla volta): ");
+                printf("Matricola (posizione %d, inserire 1 cifra alla volta): ", j + 1);
                 scanf("%d", &iva[i].partita_iva[j]);
 
                 if (iva->partita_iva[j] < 0)
@@ -43,7 +43,7 @@ void inserisciDati (PartitaIva iva[], int n)
         {
             do
             {
-                printf("Codice ufficio (ricorda di inserire 1 cifra alla volta): ");
+                printf("Codice ufficio (posizione %d, inserire 1 cifra alla volta): ", M + k + 1);
                 scanf("%d", &iva[i].partita_iva[M + k]);
 
                 if (iva[i].partita_iva[k] < 0)
@@ -51,19 +51,133 @@ void inserisciDati (PartitaIva iva[], int n)
                     printf("Errore! Non sei speciale, il tuo codice ufficio non può contenere numeri negativi. FAI ATTENZIONE! INSERISCI NUMERI MAGGIORI o UGUALI A 0!");
                 }
         
-                } while (iva[i].partita_iva[k] < 0);
+                } while (iva[i].partita_iva[M + k] < 0);
         }
         
     }
     
 }
 
-void calcoloControllo (PartitaIva iva[], int n)
+int calcoloControllo (PartitaIva iva[], int n)
 {
     int x = 0; // Somma delle posizioni dispari
     int y = 0; // Somma del DOPPIO di ogni cifra in posizione pari, se >=10 sotrarre 9
     int z = 0; // Somma di cifre in posizione pari, una volta raddoppiate, >= 5
     int t = 0; // Somma totale (X + Y + Z) \ % 10
+    int c;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            if ((j + 1) % 2 == 0)
+            {
+                int doppio = iva[i].partita_iva[j] * 2;
+                
+                if(doppio >= 10)
+                {
+                    doppio = doppio - 9;
+                }
+
+                y = y + doppio;
+            }
+
+            else
+            {
+                x = x + iva[i].partita_iva[j];
+            }
+
+            t = (x + y + z) % 10;
+            c = (10 - t) % 10;
+        }
+    }
+
+    return c;
+}
+
+int verificaCifraControllo (PartitaIva iva[], int n)
+{
+    int x = 0; // Somma delle posizioni dispari
+    int y = 0; // Somma del DOPPIO di ogni cifra in posizione pari, se >=10 sotrarre 9
+    int z = 0; // Somma di cifre in posizione pari, una volta raddoppiate, >= 5
+    int t = 0; // Somma totale (X + Y + Z) \ % 10
+    int c;
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            if ((j + 1) % 2 == 0)
+            {
+                int doppio = iva[i].partita_iva[j] * 2;
+                
+                if(doppio >= 10)
+                {
+                    doppio = doppio - 9;
+                }
+
+                y = y + doppio;
+            }
+
+            else
+            {
+                x = x + iva[i].partita_iva[j];
+            }
+
+            t = (x + y + z) % 10;
+            c = (10 - t) % 10;
+        }
+
+        if(c == iva[i].partita_iva[10])
+        {
+            printf("\nIl codice di controllo vale: %d", c);
+        }
+
+        else
+        {
+            printf("\nErrore! Il codice di controllo sembra esser speciale, anzi errato.");
+        }
+    }
+
+    return c;
+}
+
+void stampaIva(PartitaIva iva[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < I; j++)
+        {
+            printf("\n%d", iva[i].partita_iva[j]);
+        }
+    }
+}
+
+void file(PartitaIva iva[], int n)
+{
+    FILE *fp = fopen("partitaIva.txt", "a");
+
+    int variabileInt = verificaCifraControllo(iva, n);
+    
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < I; j++)
+        {
+            fprintf(fp, "%d", iva[i].partita_iva[j]);
+        }
+    }
+    
+    if (variabileInt == 1)
+    {
+        fprintf(fp, "\nIl codice di controllo e' corretto");
+    }
+
+    else
+    {
+        fprintf(fp, "\nIl codice di controllo e' ERRATO");
+    }
+
+    fclose(fp);
 }
 
 int main()
@@ -80,6 +194,12 @@ int main()
 
     inserisciDati(iva, n);
     calcoloControllo(iva, n);
+    verificaCifraControllo(iva, n);
+    stampaIva(iva, n);
+
+    // Salvo su file
+
+    file(iva, n);
 
     return 0;
 }
