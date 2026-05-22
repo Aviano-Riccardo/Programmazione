@@ -1,0 +1,4 @@
+- Azienda: a 	- Partita IVA: 00493420012
+Il codice di controllo e' corretto- Azienda: a 	- Partita IVA: 07643520564
+Il codice di controllo e' ERRATO- Azienda: Stellantis 	- Partita IVA: 07973780013
+Il codice di controllo e' corretto

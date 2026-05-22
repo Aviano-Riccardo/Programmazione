@@ -126,12 +126,12 @@ int verificaCifraControllo (PartitaIva iva[], int n)
 
         if (c == cifraControlloInserita)
         {
-            printf("\nL'undicesima cifra inserita corrisponde al codice di controllo calcolato: %d. \nCIFRA CORRETTA!", c);
+            printf("\nL'undicesima cifra inserita corrisponde al codice di controllo calcolato: %d. \nCIFRA CORRETTA!\n", c);
             corretto = 1;
         }
         else
         {
-            printf("\nERRORE! La cifra di controllo inserita sembra non corrispondere alla cifra calcolata dal programma: %d. \nCIFRA ERRATA", c);
+            printf("\nERRORE! La cifra di controllo inserita sembra non corrispondere alla cifra calcolata dal programma: %d. \nCIFRA ERRATA\n", c);
             corretto = 0;
         }
 
@@ -166,12 +166,12 @@ void file(PartitaIva iva[], int n)
 
         if (variabileInt == 1)
         {
-            fprintf(fp, "\nIl codice di controllo e' corretto");
+            fprintf(fp, "\nIl codice di controllo e' corretto\n");
         }
 
         else
         {
-            fprintf(fp, "\nIl codice di controllo e' ERRATO");
+            fprintf(fp, "\nIl codice di controllo e' ERRATO\n");
         }
     }
 
