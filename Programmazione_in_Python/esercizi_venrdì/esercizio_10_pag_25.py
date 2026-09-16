@@ -1,0 +1,5 @@
+l = float(input("Inserisci il lato del esagono: "))
+p = round((l * 6), 2)
+a = round((l * 0,866), 2)
+ar = round(((p * a) / 2), 2)
+print("L'area dell'esagono vale: ", ar)
