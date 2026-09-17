@@ -1,0 +1,6 @@
+v1 = float(input("Inserisci il voto 1= "))
+v2 = float(input("Inserisci il voto 2= "))
+v3 = float(input("Inserisci il voto 3= "))
+s = round((v1 + v2 + v3), 2)
+m = round((s / 3), 2)
+print("La media dei voti inseriti vale: ", m)
