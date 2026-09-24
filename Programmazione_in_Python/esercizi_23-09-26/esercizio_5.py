@@ -5,7 +5,7 @@
 studenti = int(input("Inserisci il numero di studenti di cui vuoi avere la media dei voti: "))
 voti = 0
 
-for nome in studenti:
+for voto in range(studenti):
     nome = str(input("\tInserisci il nome dello studente: "))
     voto = int(input("\tInserisci il voto dello studente (da 18 a 30): "))
 
