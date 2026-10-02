@@ -2,7 +2,7 @@
 # Riccardo Aviano - 29-09
 
 while True:
-    esc = input("\nDigita 'q' in qualsiasi momento se vuoi chiudere il programma: \n")
+    esc = input("\nDigita 'q' se vuoi chiudere il programma altrimenti premi invio: \n")
     
     if esc == 'q':
         print("Programma terminato.")
