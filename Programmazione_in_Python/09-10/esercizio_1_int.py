@@ -19,20 +19,28 @@ def main():
 
             while voto < 1 or voto > 10:
                 voto = float(input(f"Inserisci un voto {i + 1}: "))
-                cont += voto
 
+            cont += voto
+            
             if voto < 6:
                 cont_insufficienti += 1
             else:
                 cont_sufficienti += 1
 
         media = cont / n
+
         print("\t=== RIEPILOGO ===")
         print("\t- Nome: ", nome)
         print("\n\t- Media: ", media)
         print("\n\t- Voti sufficienti: ", cont_sufficienti)
         print("\n\t- Voti insufficienti: ", cont_insufficienti)
+
+        if media >= 6:
+            print("\n\t== STUDENTE PROMOSSO==")
+        else:
+            print("\n== GIUDIZIO IN SOSPESO ==")
         print("\n=== PROGRAMMA TERMINATO ===")
+    
     except ValueError:
         print("= Errore! Usa solo numeri interi!")
 
